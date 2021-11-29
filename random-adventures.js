@@ -71,8 +71,8 @@ var randomAdventures = new Vue({
         let mile = 0.01449275362
         let latOffset = (Math.random() * mile) - (mile / 2)
         let longOffset = (Math.random() * mile) - (mile / 2)
-        this.coord.random.lat = coord.current.lat + latOffset
-        this.coord.random.long = coord.current.long + longOffset
+        this.coord.random.lat = this.coord.current.lat + latOffset
+        this.coord.random.long = this.coord.current.long + longOffset
       },
       saveLocation(){
         localStorage.setItem('coord', JSON.stringify(this.coord))
