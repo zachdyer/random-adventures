@@ -46,9 +46,6 @@ var randomAdventures = new Vue({
       newAdventure(){
         this.setCoords()
         localStorage.setItem('coord', JSON.stringify(this.coord))
-        let randCoord = `${this.coord.random.lat},${this.coord.random.long}`
-        let currentCoord = `${this.coord.current.lat},${this.coord.current.long}`
-        this.mapUrl = `https://maps.googleapis.com/maps/api/staticmap?markers=color:blue%7C${randCoord}&markers=color:green%7C${currentCoord}&size=540x400&sensor=false&key=${this.mapKey}`
         this.update()
       },
       setCoords(){
