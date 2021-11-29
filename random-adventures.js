@@ -57,7 +57,7 @@ var randomAdventures = new Vue({
         if (navigator.geolocation) {    
             navigator.geolocation.getCurrentPosition((position) => {
               //Set current position
-              this.coord.current.lat = position.coords.latitude,
+              this.coord.current.lat = position.coords.latitude
               this.coord.current.long = position.coords.longitude
           })
         } else {
