@@ -36,7 +36,8 @@
               valid Google Maps API key.
             </p>
             <button type="button" class="btn btn-warning mt-3" @click="update">
-              <i class="bi bi-geo-alt-fill"></i> {{ distanceKM.toFixed(2) }} KM
+              <i class="bi bi-geo-alt-fill"></i> {{ (distanceKM *
+              0.621371).toFixed(2) }} MI
             </button>
 
             <div

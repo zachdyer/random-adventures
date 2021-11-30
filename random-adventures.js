@@ -66,7 +66,8 @@ var randomAdventures = new Vue({
         }
       },
       setRandomLocation(){
-        this.coord.random = this.generateRandomPoint(this.coord.current, 1000)
+        this.coord.random = this.generateRandomPoint(this.coord.current, this.maxDistance * 1000)
+        if(this.checkArrivalStatus()) this.setRandomLocation()
       },
       saveLocation(){
         localStorage.setItem('coord', JSON.stringify(this.coord))
@@ -77,7 +78,9 @@ var randomAdventures = new Vue({
       checkArrivalStatus(){
         this.updateDistance()
         if(this.distanceKM <= 0.1){
-          alert("Congratulations! You made it a random location.")
+          return true
+        } else {
+          return false
         }
       },
       getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
@@ -108,7 +111,7 @@ var randomAdventures = new Vue({
         var y = w * Math.sin(t);
       
         var xp = x/Math.cos(y0);
-      
+        
         // Resulting point.
         return {'lat': y+y0, 'long': xp+x0};
       },
