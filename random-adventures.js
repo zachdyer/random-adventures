@@ -66,12 +66,7 @@ var randomAdventures = new Vue({
         }
       },
       setRandomLocation(){
-        // Select random position within 1 KM block.
-        let km = 0.01176470588
-        let latOffset = (Math.random() * km) - (km / 2)
-        let longOffset = (Math.random() * km) - (km / 2)
-        this.coord.random.lat = this.coord.current.lat + latOffset
-        this.coord.random.long = this.coord.current.long + longOffset
+        this.coord.random = this.generateRandomPoint(this.coord.current, 1000)
       },
       saveLocation(){
         localStorage.setItem('coord', JSON.stringify(this.coord))
@@ -97,6 +92,25 @@ var randomAdventures = new Vue({
         var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
         var d = R * c; // Distance in km
         return d;
+      },
+      generateRandomPoint(center, radius) {
+        var x0 = center.long;
+        var y0 = center.lat;
+        // Convert Radius from meters to degrees.
+        var rd = radius/111300;
+      
+        var u = Math.random();
+        var v = Math.random();
+      
+        var w = rd * Math.sqrt(u);
+        var t = 2 * Math.PI * v;
+        var x = w * Math.cos(t);
+        var y = w * Math.sin(t);
+      
+        var xp = x/Math.cos(y0);
+      
+        // Resulting point.
+        return {'lat': y+y0, 'long': xp+x0};
       },
       deg2rad(deg) {
         return deg * (Math.PI/180)
