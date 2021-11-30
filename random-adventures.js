@@ -18,7 +18,8 @@ var randomAdventures = new Vue({
         message: null,
         class: 'alert-primary'
       },
-      distanceKM: 0
+      distanceKM: 0,
+      maxDistance: 1 // KM
     },
     mounted(){
       if(localStorage.getItem('mapKey')){
@@ -65,10 +66,10 @@ var randomAdventures = new Vue({
         }
       },
       setRandomLocation(){
-        // Select random position within 1 mile.
-        let mile = 0.01449275362
-        let latOffset = (Math.random() * mile) - (mile / 2)
-        let longOffset = (Math.random() * mile) - (mile / 2)
+        // Select random position within 1 KM block.
+        let km = 0.01176470588
+        let latOffset = (Math.random() * km) - (km / 2)
+        let longOffset = (Math.random() * km) - (km / 2)
         this.coord.random.lat = this.coord.current.lat + latOffset
         this.coord.random.long = this.coord.current.long + longOffset
       },
@@ -76,7 +77,7 @@ var randomAdventures = new Vue({
         localStorage.setItem('coord', JSON.stringify(this.coord))
       },
       updateMap(){
-        this.mapUrl = `https://maps.googleapis.com/maps/api/staticmap?markers=color:blue%7C${this.coord.random.lat},${this.coord.random.long}&markers=color:green%7C${this.coord.current.lat},${this.coord.current.long}&size=540x400&sensor=false&key=${this.mapKey}`
+        this.mapUrl = `https://maps.googleapis.com/maps/api/staticmap?markers=color:red%7C${this.coord.random.lat},${this.coord.random.long}&markers=color:blue%7C${this.coord.current.lat},${this.coord.current.long}&size=540x400&sensor=false&key=${this.mapKey}`
       },
       checkArrivalStatus(){
         this.updateDistance()
