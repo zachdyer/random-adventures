@@ -35,10 +35,22 @@
               Press New Adventure to begin a new adventure! Make sure you have a
               valid Google Maps API key.
             </p>
-            <button type="button" class="btn btn-warning mt-3" @click="update">
-              <i class="bi bi-geo-alt-fill"></i> {{ (distanceKM *
-              0.621371).toFixed(2) }} MI
-            </button>
+            <div class="mt-3">
+              <button
+                type="button"
+                class="btn btn-warning mr-3"
+                @click="update"
+              >
+                <i class="bi bi-geo-alt-fill"></i> {{ (distanceKM *
+                0.621371).toFixed(2) }} MI
+              </button>
+              <span class="mr-3">
+                <i class="bi bi-geo-alt-fill text-primary"></i> You
+              </span>
+              <span class="mr-3">
+                <i class="bi bi-geo-alt-fill text-danger"></i> Destination
+              </span>
+            </div>
 
             <div
               class="alert alert-primary mt-3"

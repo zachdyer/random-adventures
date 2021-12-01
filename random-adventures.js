@@ -131,7 +131,9 @@ var randomAdventures = new Vue({
       },
       update(){
         this.refreshMap()
-        this.checkArrivalStatus()
+        if(this.checkArrivalStatus()){
+          
+        }
       }
     }
 })
