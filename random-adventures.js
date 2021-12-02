@@ -136,7 +136,7 @@ var randomAdventures = new Vue({
       update(){
         this.refreshMap()
         if(this.checkArrivalStatus()){
-          
+          alert("Congratulations! You've arrived and completed your Random Adventure.")
         }
       }
     }
