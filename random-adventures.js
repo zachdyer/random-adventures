@@ -19,7 +19,8 @@ var randomAdventures = new Vue({
         class: 'alert-primary'
       },
       distanceKM: 0,
-      maxDistance: 1 // KM
+      maxDistance: 0.5, // KM
+      miles: false
     },
     mounted(){
       if(localStorage.getItem('mapKey')){
@@ -36,11 +37,14 @@ var randomAdventures = new Vue({
       } else {
         this.newAdventure()
       }
-      console.log(this.getDistanceFromLatLonInKm(this.coord.current.lat, this.coord.current.long, this.coord.random.lat, this.coord.random.long))
+      if(localStorage.getItem('maxDistance')) this.maxDistance = localStorage.getItem('maxDistance') * 1
     },
     watch: {
       mapKey(){
         localStorage.setItem('mapKey', this.mapKey)
+      },
+      maxDistance(){
+        localStorage.setItem('maxDistance', this.maxDistance)
       }
     },
     methods: {
