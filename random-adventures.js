@@ -19,7 +19,8 @@ var randomAdventures = new Vue({
         class: 'alert-primary'
       },
       distanceKM: 0,
-      maxDistance: 0.5, // KM
+      maxDistance: 1, // KM
+      minDistance: 0.1,
       miles: false
     },
     mounted(){
@@ -37,15 +38,23 @@ var randomAdventures = new Vue({
       } else {
         this.newAdventure()
       }
-      if(localStorage.getItem('maxDistance')) this.maxDistance = localStorage.getItem('maxDistance') * 1
+      if(localStorage.getItem('maxDistance')) this.maxDistance = parseInt(localStorage.getItem('maxDistance'), 10)
+      if(localStorage.getItem('minDistance')) this.minDistance = localStorage.getItem('minDistance') * 1
     },
     watch: {
       mapKey(){
         localStorage.setItem('mapKey', this.mapKey)
       },
       maxDistance(){
+        if(this.maxDistance <= this.minDistance ) this.maxDistance = this.minDistance + 0.1
         localStorage.setItem('maxDistance', this.maxDistance)
-      }
+        this.maxDistance = this.maxDistance * 1
+      },
+      minDistance(){
+        if(this.minDistance >= this.maxDistance ) this.minDistance = this.maxDistance - 0.1
+        localStorage.setItem('minDistance', this.minDistance)
+        this.minDistance = this.minDistance * 1
+      },
     },
     methods: {
       newAdventure(){
@@ -70,7 +79,7 @@ var randomAdventures = new Vue({
         }
       },
       setRandomLocation(){
-        this.coord.random = this.generateRandomPoint(this.coord.current, this.maxDistance * 1000)
+        this.coord.random = this.generateRandomPoint(this.coord.current, ((this.maxDistance - this.minDistance) + this.minDistance) * 1000)
         if(this.checkArrivalStatus()) this.setRandomLocation()
       },
       saveLocation(){
@@ -81,7 +90,7 @@ var randomAdventures = new Vue({
       },
       checkArrivalStatus(){
         this.updateDistance()
-        if(this.distanceKM <= 0.1){
+        if(this.distanceKM < 0.1){
           return true
         } else {
           return false
